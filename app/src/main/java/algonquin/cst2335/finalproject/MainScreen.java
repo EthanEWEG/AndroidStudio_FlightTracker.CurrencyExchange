@@ -1,7 +1,9 @@
 package algonquin.cst2335.finalproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -53,6 +55,26 @@ public class MainScreen extends AppCompatActivity {
             startActivity(intent);
 
             return true;
+        }
+        else if (itemId == R.id.help){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Help Window")
+                    .setMessage("Chose one of the programs below to get started")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Positive button click action (if needed)
+                        }
+                    })
+                    .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Negative button click action (if needed)
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            return super.onOptionsItemSelected(item);
+
         }
         else {
             Toast.makeText(this, "Already on home screen", Toast.LENGTH_SHORT).show();
