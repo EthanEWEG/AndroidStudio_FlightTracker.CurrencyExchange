@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="Home"
+        app:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/currencyIcon"
+        android:icon="@drawable/currency"
+        android:title="Currency Converter"
+        app:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/planeIcon"
+        android:icon="@drawable/plane"
+        android:title="Aviation Tracker"
+        app:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/garbage"
+        android:title="Delete this item"
+        app:showAsAction="always" />
+</menu>
