@@ -1,11 +1,13 @@
 package Aviation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import algonquin.cst2335.finalproject.R;
@@ -43,6 +45,26 @@ public class MainAviation extends AppCompatActivity {
             startActivity(intent);
 
             return true;
+        }
+        else if (itemId == R.id.help){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Help Window")
+                    .setMessage("what does this program do")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Positive button click action (if needed)
+                        }
+                    })
+                    .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Negative button click action (if needed)
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            return super.onOptionsItemSelected(item);
+
         }
         else {
             Toast.makeText(this, "Already on Aviation screen", Toast.LENGTH_SHORT).show();
