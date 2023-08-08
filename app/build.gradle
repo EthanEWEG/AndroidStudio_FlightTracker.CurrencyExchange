@@ -1,18 +1,13 @@
 plugins {
     id 'com.android.application'
 }
-
 android {
-    namespace 'algonquin.cst2335.finalproject'
+    namespace 'com.example.flighttracker'
     compileSdk 33
 
-    buildFeatures {
-        viewBinding true
-    }
-
     defaultConfig {
-        applicationId "algonquin.cst2335.finalproject"
-        minSdk 22
+        applicationId "com.example.flighttracker"
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -30,18 +25,32 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding true
+    }
+    task generateJavadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        options.encoding = 'UTF-8'
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.links("https://developer.android.com/reference/")
+        options.addStringOption('bootclasspath', android.bootClasspath.join(File.pathSeparator))
+    }
 }
-
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.recyclerview:recyclerview:1.3.0'
-    testImplementation 'junit:junit:4.+'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // nosql database couchbase-lite
+    implementation 'com.couchbase.lite:couchbase-lite-android:3.1.1'
+
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    def room_version = "2.4.2"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+
 }
