@@ -49,20 +49,59 @@ import algonquin.cst2335.finalproject.R;
 import algonquin.cst2335.finalproject.databinding.CurrencyScreenBinding;
 import algonquin.cst2335.finalproject.databinding.CurrencySavedBinding;
 
+/**
+ * This class represents the main currency conversion screen of the CurrencyExchange app.
+ * It allows users to convert currencies, view conversion details, and manage saved conversions.
+ */
 public class MainCurrency extends AppCompatActivity {
 
+    /**
+     *     RecyclerView Adapter for currency conversions
+      */
     private RecyclerView.Adapter myAdapter;
+    /**
+     *     // Binding object for the CurrencyScreen layout
+     */
     CurrencyScreenBinding binding;
+
+    /**
+     *     // ViewModel for handling currency conversion data
+     */
     CurrencyViewModel currencyModel;
+
+    /**
+     *     // List of currency conversion objects
+     */
     private ArrayList<Currency> currencies;
+
+    /**
+     *     // Data Access Object for interacting with the Currency Room database
+     */
     private CurrencyDAO cDAO;
 
+    /**
+     *     // Strings to hold current "From" and "To" currencies, and the amount for conversion
+      */
     protected String curFrom;
     protected String curTo;
     protected String curAmt;
+
+    /**
+     *     // RequestQueue to handle API requests using Volley
+     */
     protected RequestQueue queue = null;
+
+    /**
+     *     // Position of the selected currency in the RecyclerView
+      */
     private int selectedPosition = RecyclerView.NO_POSITION;
 
+    /**
+     * Initialize the options menu and inflate it with the specified menu resource.
+     *
+     * @param menu The options menu in which the items are placed.
+     * @return Return true for the menu to be displayed, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -71,30 +110,30 @@ public class MainCurrency extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Callback method to handle action bar item clicks.
+     *
+     * @param item The menu item that was selected.
+     * @return Return true if the item selection was handled, false otherwise.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.home){
-
+        if (itemId == R.id.home) {
+            // Handle the click on the "Home" menu item
             Intent intent = new Intent(this, algonquin.cst2335.finalproject.MainScreen.class);
-            // Add any extras if needed
-            //intent.putExtra("message", "Hello");
             startActivity(intent);
-
             return true;
-        }
-        else if (itemId == R.id.planeIcon){
-
+        } else if (itemId == R.id.planeIcon) {
+            // Handle the click on the "Plane Icon" menu item
             Intent intent = new Intent(this, Aviation.MainAviation.class);
             // Add any extras if needed
             //intent.putExtra("message", "Hello");
             startActivity(intent);
-
             return true;
-        }
-        else if (itemId == R.id.help){
-
+        } else if (itemId == R.id.help) {
+            // Handle the click on the "Help" menu item
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Help Window")
                     .setMessage("This program will convert currencies for you." +
@@ -108,28 +147,67 @@ public class MainCurrency extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
             return super.onOptionsItemSelected(item);
-
-        }
-        else {
+        } else {
+            // Handle clicks on other menu items (if any)
             Toast.makeText(this, "Already on currency screen", Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }
 
-    //shared pref for EditTexts
+    /**
+     * Key for the "From" currency used in SharedPreferences for storing the selected currency.
+     */
     private static final String FROM_KEY = "FROM_KEY";
+
+    /**
+     * Key for the "To" currency used in SharedPreferences for storing the selected currency.
+     */
     private static final String TO_KEY = "TO_KEY";
+
+    /**
+     * SharedPreferences object for managing shared preferences related to currency exchange.
+     */
     private SharedPreferences sharedPreferences;
+
+    /**
+     * EditText field for entering the "From" currency value.
+     */
     private EditText from;
+
+    /**
+     * EditText field for entering the "To" currency value.
+     */
     private EditText to;
+
+    /**
+     * EditText field for entering the amount to be converted.
+     */
     private EditText amt;
 
+    /**
+     * Key for the initial "From" currency used in SharedPreferences for storing the initially selected currency.
+     */
     private static final String FROM2_KEY = "FROM2_KEY";
+
+    /**
+     * Key for the initial "To" currency used in SharedPreferences for storing the initially selected currency.
+     */
     private static final String TO2_KEY = "TO2_KEY";
+
+    /**
+     * Key for the initial amount used in SharedPreferences for storing the initially entered amount.
+     */
     private static final String AMT_KEY = "AMT_KEY";
 
 
-
+    /**
+     * Called when the activity is starting or being recreated. This is where most of the initialization
+     * and setup of the activity should happen.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down
+     *                           then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise, it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -381,6 +459,12 @@ public class MainCurrency extends AppCompatActivity {
             queue.add(request);
         });
 
+        /**
+         * Sets an OnClickListener on the "Add" button in the CurrencyScreenBinding.
+         * When the "Add" button is clicked, this method checks if a currency item is selected in the RecyclerView.
+         * If a currency item is selected, it inserts the selected currency into the database using CurrencyDAO.
+         * A toast message is displayed to indicate that the conversion has been added.
+         */
         binding.Add.setOnClickListener(clk -> {
             if (selectedPosition != RecyclerView.NO_POSITION) {
                 Executor thread = Executors.newSingleThreadExecutor();
@@ -392,6 +476,15 @@ public class MainCurrency extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets an OnClickListener on the "Delete" button in the CurrencyScreenBinding.
+         * When the "Delete" button is clicked, this method checks if a currency item is selected in the RecyclerView.
+         * If a currency item is selected, it deletes the selected currency from the database using CurrencyDAO.
+         * The currency item is also removed from the currencies list, and the adapter is notified about the change.
+         * A Snackbar message is displayed to indicate that the conversion has been deleted, and an "Undo" action is provided.
+         * If the "Undo" action is clicked, the deleted conversion is reinserted into the database and added back to the currencies list.
+         * The adapter is notified about the new item insertion.
+         */
         binding.Delete.setOnClickListener(clk -> {
             if (selectedPosition != RecyclerView.NO_POSITION) {
                 Currency selectedCurrency = currencyModel.selectedConversion.getValue();
@@ -420,6 +513,15 @@ public class MainCurrency extends AppCompatActivity {
             }
         });
 
+        /**
+         * Sets an OnClickListener on the "Update" button in the CurrencyScreenBinding.
+         * When the "Update" button is clicked, this method fetches all currency items from the database using CurrencyDAO.
+         * For each currency item fetched, it constructs a URL for API call to get updated conversion rates.
+         * It makes a GET request to the API and updates the currency item with the received data, such as converted currency and amount.
+         * The currency item is updated in the database and the currencies list with the new data.
+         * If all the requests are completed, it clears the existing data in the currencies list and adds the updated data from the database.
+         * The adapter is then notified about the changes, and a toast message is displayed to indicate that the conversions have been shown/updated.
+         */
         binding.Update.setOnClickListener(clk -> {
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() -> {
@@ -512,18 +614,5 @@ public class MainCurrency extends AppCompatActivity {
             });
             Toast.makeText(this, "Saved Conversions Shown/Updated", Toast.LENGTH_SHORT).show();
         });
-/*
-        // Retrieve the saved values from SharedPreferences
-        String savedFrom2 = sharedPreferences.getString(FROM2_KEY, "USD");
-        String savedTo2 = sharedPreferences.getString(TO2_KEY, "CAD");
-        String savedAmt = sharedPreferences.getString(AMT_KEY, "1");
-
-        // Set the EditText fields with the saved values
-        binding.editFrom.setText(savedFrom2);
-        binding.editTo.setText(savedTo2);
-        binding.editAmount.setText(savedAmt);
-
-        // Automatically trigger the conversion
-        binding.buttonC.performClick();*/
     }
 }
