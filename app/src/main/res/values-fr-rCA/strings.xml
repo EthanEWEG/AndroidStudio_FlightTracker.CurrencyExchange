@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Projet Final</string>
+    <string name="Save_m">Sauver</string>
+    <string name="Delete_m">Supprimer</string>
+    <string name="List_m">Liste</string>
+    <string name="Convert_m">Convertir</string>
+    <string name="Amount_m">Montante</string>
+    <string name="to_m">À</string>
+    <string name="From_m">De</string>
+    <string name="Frag">informations de conversion: </string>
+</resources>
