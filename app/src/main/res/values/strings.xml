@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FinalProject</string>
+    <string name="Save_m">Save</string>
+    <string name="Delete_m">Delete</string>
+    <string name="List_m">List</string>
+    <string name="Convert_m">Convert</string>
+    <string name="Amount_m">Amount</string>
+    <string name="to_m">To</string>
+    <string name="From_m">From</string>
+    <string name="Frag">Conversion info: </string>
 </resources>

@@ -1,15 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="CurrencyExchange.MainCurrency">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_height="40dp"
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
         android:layout_width="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/blue" />
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="120dp"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+            <EditText
+                android:id="@+id/editFrom"
+                android:layout_width="40dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="10dp"
+                android:maxLength="3"
+                android:text=""
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/editAmount"
+                app:layout_constraintStart_toEndOf="@id/fromConvText"
+                app:layout_constraintTop_toTopOf="@id/fromConvText" />
+
+            <EditText
+                android:id="@+id/editTo"
+                android:layout_width="40dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="10dp"
+                android:maxLength="3"
+                android:text=""
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/editAmount"
+                app:layout_constraintStart_toEndOf="@id/toConvText"
+                app:layout_constraintTop_toTopOf="@id/toConvText" />
+
+            <EditText
+                android:id="@+id/editAmount"
+                android:layout_width="110dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="10dp"
+                android:inputType="numberDecimal"
+                android:text=""
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+                app:layout_constraintStart_toEndOf="@id/amountText"
+                app:layout_constraintTop_toTopOf="@id/amountText" />
+
+            <TextView
+                android:id="@+id/fromConvText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/From_m"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+            <TextView
+                android:id="@+id/toConvText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/to_m"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toEndOf="@id/editFrom"
+                app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+            <TextView
+                android:id="@+id/amountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Amount_m"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fromConvText" />
+
+            <Button
+                android:id="@+id/buttonC"
+                android:layout_width="107dp"
+                android:layout_height="51dp"
+                android:text="@string/Convert_m"
+                app:layout_constraintStart_toEndOf="@id/editAmount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/fromConvText"
+                app:layout_constraintBottom_toBottomOf="@id/amountText"/>
+
+            <Button
+                android:id="@+id/Update"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="@string/List_m"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/Delete"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/Delete"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="@string/Delete_m"
+                app:layout_constraintStart_toEndOf="@id/Update"
+                app:layout_constraintEnd_toStartOf="@id/Add"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <Button
+                android:id="@+id/Add"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="@string/Save_m"
+                app:layout_constraintStart_toEndOf="@id/Delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"  />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</LinearLayout>
