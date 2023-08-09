@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "algonquin.cst2335.finalproject"
-        minSdk 22
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -47,4 +47,10 @@ dependencies {
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // nosql database couchbase-lite
+    implementation 'com.couchbase.lite:couchbase-lite-android:3.1.1'
 }

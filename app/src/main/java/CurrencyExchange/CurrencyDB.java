@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 /**
  * A Room database class that defines the database and provides access to the DAO.
  */
-@Database(entities = {Currency.class}, version = 1)
+@Database(entities = {Currency.class}, version = 1,exportSchema = false)
 public abstract class CurrencyDB extends RoomDatabase {
 
     /**

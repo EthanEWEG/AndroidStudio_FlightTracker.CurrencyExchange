@@ -10,10 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import CurrencyExchange.MainCurrency;
+import Aviation.MainAviation;
 import algonquin.cst2335.finalproject.databinding.MainScreenBinding;
 
 public class MainScreen extends AppCompatActivity {
@@ -49,7 +46,7 @@ public class MainScreen extends AppCompatActivity {
         }
         else if (itemId == R.id.planeIcon){
 
-            Intent intent = new Intent(this, Aviation.MainAviation.class);
+            Intent intent = new Intent(this, MainAviation.class);
             // Add any extras if needed
             //intent.putExtra("message", "Hello");
             startActivity(intent);
@@ -101,7 +98,7 @@ public class MainScreen extends AppCompatActivity {
 
         binding.PlaneButton.setOnClickListener(click -> {
 
-            Intent intent = new Intent(this, Aviation.MainAviation.class);
+            Intent intent = new Intent(this, MainAviation.class);
             // Add any extras if needed
             //intent.putExtra("message", "Hello");
             startActivity(intent);

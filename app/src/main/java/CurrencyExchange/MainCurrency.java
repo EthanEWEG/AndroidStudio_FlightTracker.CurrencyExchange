@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +44,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import Aviation.MainAviation;
 import algonquin.cst2335.finalproject.R;
 import algonquin.cst2335.finalproject.databinding.CurrencyScreenBinding;
 import algonquin.cst2335.finalproject.databinding.CurrencySavedBinding;
@@ -127,7 +127,7 @@ public class MainCurrency extends AppCompatActivity {
             return true;
         } else if (itemId == R.id.planeIcon) {
             // Handle the click on the "Plane Icon" menu item
-            Intent intent = new Intent(this, Aviation.MainAviation.class);
+            Intent intent = new Intent(this, MainAviation.class);
             // Add any extras if needed
             //intent.putExtra("message", "Hello");
             startActivity(intent);
